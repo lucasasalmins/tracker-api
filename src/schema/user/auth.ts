@@ -133,10 +133,12 @@ export const isAdmin = rule({ cache: 'contextual' })(isAdminRule)
 export const permissions = shield({
   Query: {
     users: and(isAuthenticated, isAdmin),
+    entries: isAuthenticated
   },
   Mutation: {
     googleLogin: allow,
     userCreate: allow,
     userLogin: allow,
+    createEntry: isAuthenticated
   },
 })

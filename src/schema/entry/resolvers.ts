@@ -34,7 +34,7 @@ export const createEntryResolver = async (_, args, ctx) => {
       updatedAt: timestamp,
       User: { connect: { id: ctx.user.id } },
     }
-    console.log('data', data)
+    // console.log('data', data)
     const entry = await ctx.prisma.entry.create({ data })
     return entry
   } catch (error) {
