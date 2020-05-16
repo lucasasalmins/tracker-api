@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "esnext", 
+    "module": "commonjs", 
+    "lib": [
+      "dom",
+      "es6"
+    ],
+    "rootDir": "src", 
+    "removeComments": true, 
+    "esModuleInterop": true, 
+    "allowSyntheticDefaultImports": true, 
+    "forceConsistentCasingInFileNames": true, 
+    "declaration": true ,
+    "outDir": "./dist/" ,
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "baseUrl": "./src",
+    "paths": {
+      "@modules/*": ["schema/*"]
+    }
+  }
+}

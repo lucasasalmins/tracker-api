@@ -1,0 +1,25 @@
+node_modules
+
+# testing
+/coverage
+
+# production
+/build
+/dist
+
+# misc
+.DS_Store
+.env
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+.idea
+*.iml
+npm-packages-offline-cache
+.vscode
+dist
+coverage
+app.local.dev.yaml
+package-lock.json
