@@ -1,8 +1,8 @@
+// https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema/generators
+// native selects the platform for local development
+// debian-openssl-1.1.x is required for GCP AppEngine
 generator client {
-  provider = "prisma-client-js"
-  // https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-schema/generators
-  // native selects the platform for local development
-  // debian-openssl-1.1.x is required for GCP AppEngine
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "debian-openssl-1.1.x"]
 }
 
@@ -12,19 +12,30 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
- 
+
 // timestamps (createdAt, updatedAt) are stored as unix timestamps
 // created using Date.now() (easier to test and considers timezone)
-
 model User {
-  createdAt         Int        @map(name: "created_at")
-  email             String     @unique
-  firstName         String?    @map(name: "first_name")
-  googleId          String?    @map(name: "google_id")
-  googleImageUrl    String?    @map(name: "google_image_url")
-  id                Int        @default(autoincrement()) @id
-  lastName          String?    @map(name: "last_name")
-  password          String
-  role              String
-  updatedAt         Int         @map(name: "updated_at")
+  createdAt      Int     @map("created_at")
+  email          String  @unique
+  firstName      String? @map("first_name")
+  googleId       String? @map("google_id")
+  googleImageUrl String? @map("google_image_url")
+  id             Int     @default(autoincrement()) @id
+  lastName       String? @map("last_name")
+  password       String
+  role           String
+  updatedAt      Int     @map("updated_at")
+  Entry          Entry[]
+}
+
+model Entry {
+  created_at Int
+  id         Int    @default(autoincrement()) @id
+  item       String
+  occurred   Int
+  updatedAt  Int    @map("updated_at")
+  userId     Int    @map("user_id")
+  value      String
+  User       User   @relation(fields: [userId], references: [id])
 }

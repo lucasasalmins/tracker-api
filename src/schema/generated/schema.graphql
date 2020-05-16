@@ -5,6 +5,16 @@
 """Date custom scalar type"""
 scalar DateTime
 
+type Entry {
+  createdAt: DateTime!
+  id: String!
+  item: String!
+  occurred: String!
+  updatedAt: DateTime!
+  userId: Int!
+  value: String!
+}
+
 input Filter {
   field: String!
   values: [String!]
@@ -26,6 +36,7 @@ type Mutation {
 }
 
 type Query {
+  entries: [Entry!]!
   users: [User!]!
 }
 

@@ -1,5 +1,11 @@
 import config from '../utils/config'
 
+
+
+export const CREATE_SCHEMA = `
+  CREATE SCHEMA IF NOT EXISTS ${config.db.SCHEMA}
+`
+
 export const CREATE_USER = `
   CREATE TABLE IF NOT EXISTS ${config.db.SCHEMA}."User" (
     id                  SERIAL PRIMARY KEY,
@@ -19,7 +25,14 @@ export const CREATE_USER = `
   )
 `
 
-
-export const CREATE_SCHEMA = `
-  CREATE SCHEMA IF NOT EXISTS ${config.db.SCHEMA}
+export const CREATE_ENTRY = `
+  CREATE TABLE IF NOT EXISTS ${config.db.SCHEMA}."Entry" (
+    id                  SERIAL PRIMARY KEY,
+    item                character varying(255) NOT NULL,
+    value               character varying(255) NOT NULL,
+    occurred            bigint NOT NULL,
+    created_at          bigint NOT NULL,
+    updated_at          bigint NOT NULL,
+    user_id             integer REFERENCES ${config.db.SCHEMA}."User"(id) NOT NULL
+  )
 `

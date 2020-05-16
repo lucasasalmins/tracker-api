@@ -48,6 +48,15 @@ export interface NexusGenEnums {
 }
 
 export interface NexusGenRootTypes {
+  Entry: { // root type
+    createdAt: any; // DateTime!
+    id: string; // String!
+    item: string; // String!
+    occurred: string; // String!
+    updatedAt: any; // DateTime!
+    userId: number; // Int!
+    value: string; // String!
+  }
   Mutation: {};
   Query: {};
   User: { // root type
@@ -80,6 +89,15 @@ export interface NexusGenAllTypes extends NexusGenRootTypes {
 }
 
 export interface NexusGenFieldTypes {
+  Entry: { // field return type
+    createdAt: any; // DateTime!
+    id: string; // String!
+    item: string; // String!
+    occurred: string; // String!
+    updatedAt: any; // DateTime!
+    userId: number; // Int!
+    value: string; // String!
+  }
   Mutation: { // field return type
     googleLogin: NexusGenRootTypes['UserLoginResponse']; // UserLoginResponse!
     refreshTokens: NexusGenRootTypes['UserLoginResponse']; // UserLoginResponse!
@@ -87,6 +105,7 @@ export interface NexusGenFieldTypes {
     userLogin: NexusGenRootTypes['UserLoginResponse']; // UserLoginResponse!
   }
   Query: { // field return type
+    entries: NexusGenRootTypes['Entry'][]; // [Entry!]!
     users: NexusGenRootTypes['User'][]; // [User!]!
   }
   User: { // field return type
@@ -127,7 +146,7 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Mutation" | "Query" | "User" | "UserLoginResponse";
+export type NexusGenObjectNames = "Entry" | "Mutation" | "Query" | "User" | "UserLoginResponse";
 
 export type NexusGenInputNames = "Filter" | "GoogleUser" | "RefreshTokens" | "UserLogin";
 

@@ -261,6 +261,16 @@ export declare class PrismaClient<T extends PrismaClientOptions = {}, U = keyof 
     * ```
     */
   get user(): UserDelegate;
+
+  /**
+   * `prisma.entry`: Exposes CRUD operations for the **Entry** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Entries
+    * const entries = await prisma.entry.findMany()
+    * ```
+    */
+  get entry(): EntryDelegate;
 }
 
 
@@ -309,10 +319,11 @@ export type UserSelect = {
   password?: boolean
   role?: boolean
   updatedAt?: boolean
+  Entry?: boolean | FindManyEntryArgs
 }
 
 export type UserInclude = {
-
+  Entry?: boolean | FindManyEntryArgs
 }
 
 export type UserGetPayload<
@@ -324,12 +335,17 @@ export type UserGetPayload<
   ? never
   : S extends UserArgs
   ? 'include' extends U
-    ? User 
+    ? User  & {
+      [P in TrueKeys<S['include']>]:
+      P extends 'Entry'
+      ? Array<EntryGetPayload<S['include'][P]>> : never
+    }
   : 'select' extends U
     ? {
       [P in TrueKeys<S['select']>]:P extends keyof User ? User[P]
 : 
- never
+      P extends 'Entry'
+      ? Array<EntryGetPayload<S['select'][P]>> : never
     }
   : User
 : User
@@ -491,6 +507,7 @@ export declare class UserClient<T> implements Promise<T> {
   constructor(_dmmf: DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
   readonly [Symbol.toStringTag]: 'PrismaClientPromise';
 
+  Entry<T extends FindManyEntryArgs = {}>(args?: Subset<T, FindManyEntryArgs>): CheckSelect<T, Promise<Array<Entry>>, Promise<Array<EntryGetPayload<T>>>>;
 
   private get _document();
   /**
@@ -701,9 +718,443 @@ export type UserArgs = {
 
 
 /**
+ * Model Entry
+ */
+
+export type Entry = {
+  created_at: number
+  id: number
+  item: string
+  occurred: number
+  updatedAt: number
+  userId: number
+  value: string
+}
+
+export type EntrySelect = {
+  created_at?: boolean
+  id?: boolean
+  item?: boolean
+  occurred?: boolean
+  updatedAt?: boolean
+  userId?: boolean
+  value?: boolean
+  User?: boolean | UserArgs
+}
+
+export type EntryInclude = {
+  User?: boolean | UserArgs
+}
+
+export type EntryGetPayload<
+  S extends boolean | null | undefined | EntryArgs,
+  U = keyof S
+> = S extends true
+  ? Entry
+  : S extends undefined
+  ? never
+  : S extends EntryArgs
+  ? 'include' extends U
+    ? Entry  & {
+      [P in TrueKeys<S['include']>]:
+      P extends 'User'
+      ? UserGetPayload<S['include'][P]> : never
+    }
+  : 'select' extends U
+    ? {
+      [P in TrueKeys<S['select']>]:P extends keyof Entry ? Entry[P]
+: 
+      P extends 'User'
+      ? UserGetPayload<S['select'][P]> : never
+    }
+  : Entry
+: Entry
+
+
+export interface EntryDelegate {
+  /**
+   * Find zero or one Entry.
+   * @param {FindOneEntryArgs} args - Arguments to find a Entry
+   * @example
+   * // Get one Entry
+   * const entry = await prisma.entry.findOne({
+   *   where: {
+   *     // ... provide filter here
+   *   }
+   * })
+  **/
+  findOne<T extends FindOneEntryArgs>(
+    args: Subset<T, FindOneEntryArgs>
+  ): CheckSelect<T, EntryClient<Entry | null>, EntryClient<EntryGetPayload<T> | null>>
+  /**
+   * Find zero or more Entries.
+   * @param {FindManyEntryArgs=} args - Arguments to filter and select certain fields only.
+   * @example
+   * // Get all Entries
+   * const entries = await prisma.entry.findMany()
+   * 
+   * // Get first 10 Entries
+   * const entries = await prisma.entry.findMany({ first: 10 })
+   * 
+   * // Only select the `created_at`
+   * const entryWithCreated_atOnly = await prisma.entry.findMany({ select: { created_at: true } })
+   * 
+  **/
+  findMany<T extends FindManyEntryArgs>(
+    args?: Subset<T, FindManyEntryArgs>
+  ): CheckSelect<T, Promise<Array<Entry>>, Promise<Array<EntryGetPayload<T>>>>
+  /**
+   * Create a Entry.
+   * @param {EntryCreateArgs} args - Arguments to create a Entry.
+   * @example
+   * // Create one Entry
+   * const user = await prisma.entry.create({
+   *   data: {
+   *     // ... data to create a Entry
+   *   }
+   * })
+   * 
+  **/
+  create<T extends EntryCreateArgs>(
+    args: Subset<T, EntryCreateArgs>
+  ): CheckSelect<T, EntryClient<Entry>, EntryClient<EntryGetPayload<T>>>
+  /**
+   * Delete a Entry.
+   * @param {EntryDeleteArgs} args - Arguments to delete one Entry.
+   * @example
+   * // Delete one Entry
+   * const user = await prisma.entry.delete({
+   *   where: {
+   *     // ... filter to delete one Entry
+   *   }
+   * })
+   * 
+  **/
+  delete<T extends EntryDeleteArgs>(
+    args: Subset<T, EntryDeleteArgs>
+  ): CheckSelect<T, EntryClient<Entry>, EntryClient<EntryGetPayload<T>>>
+  /**
+   * Update one Entry.
+   * @param {EntryUpdateArgs} args - Arguments to update one Entry.
+   * @example
+   * // Update one Entry
+   * const entry = await prisma.entry.update({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: {
+   *     // ... provider data here
+   *   }
+   * })
+   * 
+  **/
+  update<T extends EntryUpdateArgs>(
+    args: Subset<T, EntryUpdateArgs>
+  ): CheckSelect<T, EntryClient<Entry>, EntryClient<EntryGetPayload<T>>>
+  /**
+   * Delete zero or more Entries.
+   * @param {EntryDeleteManyArgs} args - Arguments to filter Entries to delete.
+   * @example
+   * // Delete a few Entries
+   * const { count } = await prisma.entry.deleteMany({
+   *   where: {
+   *     // ... provide filter here
+   *   }
+   * })
+   * 
+  **/
+  deleteMany<T extends EntryDeleteManyArgs>(
+    args: Subset<T, EntryDeleteManyArgs>
+  ): Promise<BatchPayload>
+  /**
+   * Update zero or more Entries.
+   * @param {EntryUpdateManyArgs} args - Arguments to update one or more rows.
+   * @example
+   * // Update many Entries
+   * const entry = await prisma.entry.updateMany({
+   *   where: {
+   *     // ... provide filter here
+   *   },
+   *   data: {
+   *     // ... provider data here
+   *   }
+   * })
+   * 
+  **/
+  updateMany<T extends EntryUpdateManyArgs>(
+    args: Subset<T, EntryUpdateManyArgs>
+  ): Promise<BatchPayload>
+  /**
+   * Create or update one Entry.
+   * @param {EntryUpsertArgs} args - Arguments to update or create a Entry.
+   * @example
+   * // Update or create a Entry
+   * const entry = await prisma.entry.upsert({
+   *   create: {
+   *     // ... data to create a Entry
+   *   },
+   *   update: {
+   *     // ... in case it already exists, update
+   *   },
+   *   where: {
+   *     // ... the filter for the Entry we want to update
+   *   }
+   * })
+  **/
+  upsert<T extends EntryUpsertArgs>(
+    args: Subset<T, EntryUpsertArgs>
+  ): CheckSelect<T, EntryClient<Entry>, EntryClient<EntryGetPayload<T>>>
+  /**
+   * 
+   */
+  count(): Promise<number>
+}
+
+export declare class EntryClient<T> implements Promise<T> {
+  private readonly _dmmf;
+  private readonly _fetcher;
+  private readonly _queryType;
+  private readonly _rootField;
+  private readonly _clientMethod;
+  private readonly _args;
+  private readonly _dataPath;
+  private readonly _errorFormat;
+  private readonly _measurePerformance?;
+  private _isList;
+  private _callsite;
+  private _requestPromise?;
+  private _collectTimestamps?;
+  constructor(_dmmf: DMMFClass, _fetcher: PrismaClientFetcher, _queryType: 'query' | 'mutation', _rootField: string, _clientMethod: string, _args: any, _dataPath: string[], _errorFormat: ErrorFormat, _measurePerformance?: boolean | undefined, _isList?: boolean);
+  readonly [Symbol.toStringTag]: 'PrismaClientPromise';
+
+  User<T extends UserArgs = {}>(args?: Subset<T, UserArgs>): CheckSelect<T, UserClient<User | null>, UserClient<UserGetPayload<T> | null>>;
+
+  private get _document();
+  /**
+   * Attaches callbacks for the resolution and/or rejection of the Promise.
+   * @param onfulfilled The callback to execute when the Promise is resolved.
+   * @param onrejected The callback to execute when the Promise is rejected.
+   * @returns A Promise for the completion of which ever callback is executed.
+   */
+  then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | Promise<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | Promise<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
+  /**
+   * Attaches a callback for only the rejection of the Promise.
+   * @param onrejected The callback to execute when the Promise is rejected.
+   * @returns A Promise for the completion of the callback.
+   */
+  catch<TResult = never>(onrejected?: ((reason: any) => TResult | Promise<TResult>) | undefined | null): Promise<T | TResult>;
+  /**
+   * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+   * resolved value cannot be modified from the callback.
+   * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+   * @returns A Promise for the completion of the callback.
+   */
+  finally(onfinally?: (() => void) | undefined | null): Promise<T>;
+}
+
+// Custom InputTypes
+
+/**
+ * Entry findOne
+ */
+export type FindOneEntryArgs = {
+  /**
+   * Select specific fields to fetch from the Entry
+  **/
+  select?: EntrySelect | null
+  /**
+   * Choose, which related nodes to fetch as well.
+  **/
+  include?: EntryInclude | null
+  /**
+   * Filter, which Entry to fetch.
+  **/
+  where: EntryWhereUniqueInput
+}
+
+
+/**
+ * Entry findMany
+ */
+export type FindManyEntryArgs = {
+  /**
+   * Select specific fields to fetch from the Entry
+  **/
+  select?: EntrySelect | null
+  /**
+   * Choose, which related nodes to fetch as well.
+  **/
+  include?: EntryInclude | null
+  /**
+   * Filter, which Entries to fetch.
+  **/
+  where?: EntryWhereInput | null
+  /**
+   * Determine the order of the Entries to fetch.
+  **/
+  orderBy?: EntryOrderByInput | null
+  /**
+   * Skip the first `n` Entries.
+  **/
+  skip?: number | null
+  /**
+   * Get all Entries that come after the Entry you provide with the current order.
+  **/
+  after?: EntryWhereUniqueInput | null
+  /**
+   * Get all Entries that come before the Entry you provide with the current order.
+  **/
+  before?: EntryWhereUniqueInput | null
+  /**
+   * Get the first `n` Entries.
+  **/
+  first?: number | null
+  /**
+   * Get the last `n` Entries.
+  **/
+  last?: number | null
+}
+
+
+/**
+ * Entry create
+ */
+export type EntryCreateArgs = {
+  /**
+   * Select specific fields to fetch from the Entry
+  **/
+  select?: EntrySelect | null
+  /**
+   * Choose, which related nodes to fetch as well.
+  **/
+  include?: EntryInclude | null
+  /**
+   * The data needed to create a Entry.
+  **/
+  data: EntryCreateInput
+}
+
+
+/**
+ * Entry update
+ */
+export type EntryUpdateArgs = {
+  /**
+   * Select specific fields to fetch from the Entry
+  **/
+  select?: EntrySelect | null
+  /**
+   * Choose, which related nodes to fetch as well.
+  **/
+  include?: EntryInclude | null
+  /**
+   * The data needed to update a Entry.
+  **/
+  data: EntryUpdateInput
+  /**
+   * Choose, which Entry to update.
+  **/
+  where: EntryWhereUniqueInput
+}
+
+
+/**
+ * Entry updateMany
+ */
+export type EntryUpdateManyArgs = {
+  data: EntryUpdateManyMutationInput
+  where?: EntryWhereInput | null
+}
+
+
+/**
+ * Entry upsert
+ */
+export type EntryUpsertArgs = {
+  /**
+   * Select specific fields to fetch from the Entry
+  **/
+  select?: EntrySelect | null
+  /**
+   * Choose, which related nodes to fetch as well.
+  **/
+  include?: EntryInclude | null
+  /**
+   * The filter to search for the Entry to update in case it exists.
+  **/
+  where: EntryWhereUniqueInput
+  /**
+   * In case the Entry found by the `where` argument doesn't exist, create a new Entry with this data.
+  **/
+  create: EntryCreateInput
+  /**
+   * In case the Entry was found with the provided `where` argument, update it with this data.
+  **/
+  update: EntryUpdateInput
+}
+
+
+/**
+ * Entry delete
+ */
+export type EntryDeleteArgs = {
+  /**
+   * Select specific fields to fetch from the Entry
+  **/
+  select?: EntrySelect | null
+  /**
+   * Choose, which related nodes to fetch as well.
+  **/
+  include?: EntryInclude | null
+  /**
+   * Filter which Entry to delete.
+  **/
+  where: EntryWhereUniqueInput
+}
+
+
+/**
+ * Entry deleteMany
+ */
+export type EntryDeleteManyArgs = {
+  where?: EntryWhereInput | null
+}
+
+
+/**
+ * Entry without action
+ */
+export type EntryArgs = {
+  /**
+   * Select specific fields to fetch from the Entry
+  **/
+  select?: EntrySelect | null
+  /**
+   * Choose, which related nodes to fetch as well.
+  **/
+  include?: EntryInclude | null
+}
+
+
+
+/**
  * Deep Input Types
  */
 
+
+export type EntryWhereInput = {
+  created_at?: number | IntFilter | null
+  id?: number | IntFilter | null
+  item?: string | StringFilter | null
+  occurred?: number | IntFilter | null
+  updatedAt?: number | IntFilter | null
+  userId?: number | IntFilter | null
+  value?: string | StringFilter | null
+  AND?: Enumerable<EntryWhereInput> | null
+  OR?: Enumerable<EntryWhereInput> | null
+  NOT?: Enumerable<EntryWhereInput> | null
+  User?: UserWhereInput | null
+}
 
 export type UserWhereInput = {
   createdAt?: number | IntFilter | null
@@ -716,6 +1167,7 @@ export type UserWhereInput = {
   password?: string | StringFilter | null
   role?: string | StringFilter | null
   updatedAt?: number | IntFilter | null
+  Entry?: EntryFilter | null
   AND?: Enumerable<UserWhereInput> | null
   OR?: Enumerable<UserWhereInput> | null
   NOT?: Enumerable<UserWhereInput> | null
@@ -724,6 +1176,23 @@ export type UserWhereInput = {
 export type UserWhereUniqueInput = {
   email?: string | null
   id?: number | null
+}
+
+export type EntryWhereUniqueInput = {
+  id?: number | null
+}
+
+export type EntryCreateWithoutUserInput = {
+  created_at: number
+  item: string
+  occurred: number
+  updatedAt: number
+  value: string
+}
+
+export type EntryCreateManyWithoutUserInput = {
+  create?: Enumerable<EntryCreateWithoutUserInput> | null
+  connect?: Enumerable<EntryWhereUniqueInput> | null
 }
 
 export type UserCreateInput = {
@@ -736,6 +1205,66 @@ export type UserCreateInput = {
   password: string
   role: string
   updatedAt: number
+  Entry?: EntryCreateManyWithoutUserInput | null
+}
+
+export type EntryUpdateWithoutUserDataInput = {
+  created_at?: number | null
+  id?: number | null
+  item?: string | null
+  occurred?: number | null
+  updatedAt?: number | null
+  value?: string | null
+}
+
+export type EntryUpdateWithWhereUniqueWithoutUserInput = {
+  where: EntryWhereUniqueInput
+  data: EntryUpdateWithoutUserDataInput
+}
+
+export type EntryScalarWhereInput = {
+  created_at?: number | IntFilter | null
+  id?: number | IntFilter | null
+  item?: string | StringFilter | null
+  occurred?: number | IntFilter | null
+  updatedAt?: number | IntFilter | null
+  userId?: number | IntFilter | null
+  value?: string | StringFilter | null
+  AND?: Enumerable<EntryScalarWhereInput> | null
+  OR?: Enumerable<EntryScalarWhereInput> | null
+  NOT?: Enumerable<EntryScalarWhereInput> | null
+}
+
+export type EntryUpdateManyDataInput = {
+  created_at?: number | null
+  id?: number | null
+  item?: string | null
+  occurred?: number | null
+  updatedAt?: number | null
+  value?: string | null
+}
+
+export type EntryUpdateManyWithWhereNestedInput = {
+  where: EntryScalarWhereInput
+  data: EntryUpdateManyDataInput
+}
+
+export type EntryUpsertWithWhereUniqueWithoutUserInput = {
+  where: EntryWhereUniqueInput
+  update: EntryUpdateWithoutUserDataInput
+  create: EntryCreateWithoutUserInput
+}
+
+export type EntryUpdateManyWithoutUserInput = {
+  create?: Enumerable<EntryCreateWithoutUserInput> | null
+  connect?: Enumerable<EntryWhereUniqueInput> | null
+  set?: Enumerable<EntryWhereUniqueInput> | null
+  disconnect?: Enumerable<EntryWhereUniqueInput> | null
+  delete?: Enumerable<EntryWhereUniqueInput> | null
+  update?: Enumerable<EntryUpdateWithWhereUniqueWithoutUserInput> | null
+  updateMany?: Enumerable<EntryUpdateManyWithWhereNestedInput> | null
+  deleteMany?: Enumerable<EntryScalarWhereInput> | null
+  upsert?: Enumerable<EntryUpsertWithWhereUniqueWithoutUserInput> | null
 }
 
 export type UserUpdateInput = {
@@ -749,6 +1278,7 @@ export type UserUpdateInput = {
   password?: string | null
   role?: string | null
   updatedAt?: number | null
+  Entry?: EntryUpdateManyWithoutUserInput | null
 }
 
 export type UserUpdateManyMutationInput = {
@@ -762,6 +1292,76 @@ export type UserUpdateManyMutationInput = {
   password?: string | null
   role?: string | null
   updatedAt?: number | null
+}
+
+export type UserCreateWithoutEntryInput = {
+  createdAt: number
+  email: string
+  firstName?: string | null
+  googleId?: string | null
+  googleImageUrl?: string | null
+  lastName?: string | null
+  password: string
+  role: string
+  updatedAt: number
+}
+
+export type UserCreateOneWithoutEntryInput = {
+  create?: UserCreateWithoutEntryInput | null
+  connect?: UserWhereUniqueInput | null
+}
+
+export type EntryCreateInput = {
+  created_at: number
+  item: string
+  occurred: number
+  updatedAt: number
+  value: string
+  User: UserCreateOneWithoutEntryInput
+}
+
+export type UserUpdateWithoutEntryDataInput = {
+  createdAt?: number | null
+  email?: string | null
+  firstName?: string | null
+  googleId?: string | null
+  googleImageUrl?: string | null
+  id?: number | null
+  lastName?: string | null
+  password?: string | null
+  role?: string | null
+  updatedAt?: number | null
+}
+
+export type UserUpsertWithoutEntryInput = {
+  update: UserUpdateWithoutEntryDataInput
+  create: UserCreateWithoutEntryInput
+}
+
+export type UserUpdateOneRequiredWithoutEntryInput = {
+  create?: UserCreateWithoutEntryInput | null
+  connect?: UserWhereUniqueInput | null
+  update?: UserUpdateWithoutEntryDataInput | null
+  upsert?: UserUpsertWithoutEntryInput | null
+}
+
+export type EntryUpdateInput = {
+  created_at?: number | null
+  id?: number | null
+  item?: string | null
+  occurred?: number | null
+  updatedAt?: number | null
+  value?: string | null
+  User?: UserUpdateOneRequiredWithoutEntryInput | null
+}
+
+export type EntryUpdateManyMutationInput = {
+  created_at?: number | null
+  id?: number | null
+  item?: string | null
+  occurred?: number | null
+  updatedAt?: number | null
+  value?: string | null
 }
 
 export type IntFilter = {
@@ -803,6 +1403,12 @@ export type NullableStringFilter = {
   endsWith?: string | null
 }
 
+export type EntryFilter = {
+  every?: EntryWhereInput | null
+  some?: EntryWhereInput | null
+  none?: EntryWhereInput | null
+}
+
 export type UserOrderByInput = {
   createdAt?: OrderByArg | null
   email?: OrderByArg | null
@@ -814,6 +1420,17 @@ export type UserOrderByInput = {
   password?: OrderByArg | null
   role?: OrderByArg | null
   updatedAt?: OrderByArg | null
+}
+
+export type EntryOrderByInput = {
+  created_at?: OrderByArg | null
+  id?: OrderByArg | null
+  item?: OrderByArg | null
+  occurred?: OrderByArg | null
+  updatedAt?: OrderByArg | null
+  userId?: OrderByArg | null
+  value?: OrderByArg | null
+  User?: OrderByArg | null
 }
 
 /**
