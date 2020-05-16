@@ -8,11 +8,6 @@ const bcrypt = require('bcryptjs')
 
 const { GOOGLE_CLIENT_ID } = config
 
-const approvedUsers = [
-  'test@mudano.com',
-  'test1@mudano.com',
-]
-
 export const userResolver = async (_, args, ctx) => {
   try {
     const users = await ctx.prisma.user.findMany()
@@ -69,14 +64,8 @@ export const googleLogin = mutationField('googleLogin', {
 export const userCreateResolver = async (_, args, ctx) => {
   const { email, password } = args.user
   try {
-    if (!approvedUsers.includes(email))
-      throw new Error('ERROR: You are not authorised.')
-
     const existingUser = await ctx.prisma.user.findOne({ where: { email } })
-    if (existingUser)
-      throw new Error(
-        'ERROR: Email already in use. You may already have signed up with Google',
-      )
+    if (existingUser) throw new Error('ERROR: Email already in use. You may already have signed up with Google')
 
     const hashedPassword = await bcrypt.hash(password, 10)
     const data = await constructUser({ email }, hashedPassword)
@@ -101,9 +90,7 @@ export const userLoginResolver = async (_, args, ctx) => {
     const existingUser = await ctx.prisma.user.findOne({ where: { email } })
 
     if (!existingUser) throw new Error('ERROR: User does not exist')
-    const { password: savedPassword, ...user } = await ctx.prisma.user.findOne({
-      where: { email },
-    })
+    const { password: savedPassword, ...user } = await ctx.prisma.user.findOne({ where: { email } })
 
     const validPassword = await bcrypt.compareSync(password, savedPassword)
     if (validPassword) return await createTokens(user.id, user.role)
