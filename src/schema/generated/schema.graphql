@@ -9,10 +9,16 @@ type Entry {
   createdAt: DateTime!
   id: String!
   item: String!
-  occurred: String!
+  occurred: DateTime!
   updatedAt: DateTime!
   userId: Int!
   value: String!
+}
+
+input EntryInput {
+  item: String
+  occurred: String
+  value: String
 }
 
 input Filter {
@@ -29,6 +35,7 @@ input GoogleUser {
 }
 
 type Mutation {
+  createEntry(entry: EntryInput!): Entry!
   googleLogin(token: String!): UserLoginResponse!
   refreshTokens(refreshToken: String!, token: String!): UserLoginResponse!
   userCreate(user: UserLogin!): UserLoginResponse!

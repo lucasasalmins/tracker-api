@@ -22,6 +22,11 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  EntryInput: { // input type
+    item?: string | null; // String
+    occurred?: string | null; // String
+    value?: string | null; // String
+  }
   Filter: { // input type
     field: string; // String!
     values?: string[] | null; // [String!]
@@ -52,7 +57,7 @@ export interface NexusGenRootTypes {
     createdAt: any; // DateTime!
     id: string; // String!
     item: string; // String!
-    occurred: string; // String!
+    occurred: any; // DateTime!
     updatedAt: any; // DateTime!
     userId: number; // Int!
     value: string; // String!
@@ -81,6 +86,7 @@ export interface NexusGenRootTypes {
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
+  EntryInput: NexusGenInputs['EntryInput'];
   Filter: NexusGenInputs['Filter'];
   GoogleUser: NexusGenInputs['GoogleUser'];
   RefreshTokens: NexusGenInputs['RefreshTokens'];
@@ -93,12 +99,13 @@ export interface NexusGenFieldTypes {
     createdAt: any; // DateTime!
     id: string; // String!
     item: string; // String!
-    occurred: string; // String!
+    occurred: any; // DateTime!
     updatedAt: any; // DateTime!
     userId: number; // Int!
     value: string; // String!
   }
   Mutation: { // field return type
+    createEntry: NexusGenRootTypes['Entry']; // Entry!
     googleLogin: NexusGenRootTypes['UserLoginResponse']; // UserLoginResponse!
     refreshTokens: NexusGenRootTypes['UserLoginResponse']; // UserLoginResponse!
     userCreate: NexusGenRootTypes['UserLoginResponse']; // UserLoginResponse!
@@ -125,6 +132,9 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    createEntry: { // args
+      entry: NexusGenInputs['EntryInput']; // EntryInput!
+    }
     googleLogin: { // args
       token: string; // String!
     }
@@ -148,7 +158,7 @@ export interface NexusGenInheritedFields {}
 
 export type NexusGenObjectNames = "Entry" | "Mutation" | "Query" | "User" | "UserLoginResponse";
 
-export type NexusGenInputNames = "Filter" | "GoogleUser" | "RefreshTokens" | "UserLogin";
+export type NexusGenInputNames = "EntryInput" | "Filter" | "GoogleUser" | "RefreshTokens" | "UserLogin";
 
 export type NexusGenEnumNames = "Role";
 

@@ -30,7 +30,7 @@ model User {
 }
 
 model Entry {
-  created_at Int
+  createdAt  Int    @map("created_at")
   id         Int    @default(autoincrement()) @id
   item       String
   occurred   Int

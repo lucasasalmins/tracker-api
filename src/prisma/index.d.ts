@@ -722,7 +722,7 @@ export type UserArgs = {
  */
 
 export type Entry = {
-  created_at: number
+  createdAt: number
   id: number
   item: string
   occurred: number
@@ -732,7 +732,7 @@ export type Entry = {
 }
 
 export type EntrySelect = {
-  created_at?: boolean
+  createdAt?: boolean
   id?: boolean
   item?: boolean
   occurred?: boolean
@@ -796,8 +796,8 @@ export interface EntryDelegate {
    * // Get first 10 Entries
    * const entries = await prisma.entry.findMany({ first: 10 })
    * 
-   * // Only select the `created_at`
-   * const entryWithCreated_atOnly = await prisma.entry.findMany({ select: { created_at: true } })
+   * // Only select the `createdAt`
+   * const entryWithCreatedAtOnly = await prisma.entry.findMany({ select: { createdAt: true } })
    * 
   **/
   findMany<T extends FindManyEntryArgs>(
@@ -1143,7 +1143,7 @@ export type EntryArgs = {
 
 
 export type EntryWhereInput = {
-  created_at?: number | IntFilter | null
+  createdAt?: number | IntFilter | null
   id?: number | IntFilter | null
   item?: string | StringFilter | null
   occurred?: number | IntFilter | null
@@ -1183,7 +1183,7 @@ export type EntryWhereUniqueInput = {
 }
 
 export type EntryCreateWithoutUserInput = {
-  created_at: number
+  createdAt: number
   item: string
   occurred: number
   updatedAt: number
@@ -1209,7 +1209,7 @@ export type UserCreateInput = {
 }
 
 export type EntryUpdateWithoutUserDataInput = {
-  created_at?: number | null
+  createdAt?: number | null
   id?: number | null
   item?: string | null
   occurred?: number | null
@@ -1223,7 +1223,7 @@ export type EntryUpdateWithWhereUniqueWithoutUserInput = {
 }
 
 export type EntryScalarWhereInput = {
-  created_at?: number | IntFilter | null
+  createdAt?: number | IntFilter | null
   id?: number | IntFilter | null
   item?: string | StringFilter | null
   occurred?: number | IntFilter | null
@@ -1236,7 +1236,7 @@ export type EntryScalarWhereInput = {
 }
 
 export type EntryUpdateManyDataInput = {
-  created_at?: number | null
+  createdAt?: number | null
   id?: number | null
   item?: string | null
   occurred?: number | null
@@ -1312,7 +1312,7 @@ export type UserCreateOneWithoutEntryInput = {
 }
 
 export type EntryCreateInput = {
-  created_at: number
+  createdAt: number
   item: string
   occurred: number
   updatedAt: number
@@ -1346,7 +1346,7 @@ export type UserUpdateOneRequiredWithoutEntryInput = {
 }
 
 export type EntryUpdateInput = {
-  created_at?: number | null
+  createdAt?: number | null
   id?: number | null
   item?: string | null
   occurred?: number | null
@@ -1356,7 +1356,7 @@ export type EntryUpdateInput = {
 }
 
 export type EntryUpdateManyMutationInput = {
-  created_at?: number | null
+  createdAt?: number | null
   id?: number | null
   item?: string | null
   occurred?: number | null
@@ -1423,7 +1423,7 @@ export type UserOrderByInput = {
 }
 
 export type EntryOrderByInput = {
-  created_at?: OrderByArg | null
+  createdAt?: OrderByArg | null
   id?: OrderByArg | null
   item?: OrderByArg | null
   occurred?: OrderByArg | null
