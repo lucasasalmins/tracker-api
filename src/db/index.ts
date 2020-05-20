@@ -4,7 +4,7 @@
  */
 import promise from 'bluebird' // or any other Promise/A+ compatible library
 import { Pool, PoolConfig } from 'pg'
-// import * as monitor from 'pg-monitor'
+import * as monitor from 'pg-monitor'
 import config from '../utils/config'
 
 const dbConfig: PoolConfig = {
@@ -27,15 +27,15 @@ const initOptions = {
 
 const pgp = require('pg-promise')(initOptions)
 
-// // attach to all query events
-// monitor.attach(initOptions)
+// attach to all query events
+monitor.attach(initOptions)
 
-// // monitor.setTheme(myTheme); // selecting your own theme;
-// monitor.setTheme('invertedMonochrome') // change the default theme
+// monitor.setTheme(myTheme); // selecting your own theme;
+monitor.setTheme('invertedMonochrome') // change the default theme
 
-// monitor.setLog((msg, info) => {
-//   // save the screen messages into your own log file
-// })
+monitor.setLog((msg, info) => {
+  // save the screen messages into your own log file
+})
 
 // database instance
 const db = pgp(dbConfig)
