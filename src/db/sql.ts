@@ -36,3 +36,17 @@ export const CREATE_ENTRY = `
     user_id             integer REFERENCES ${config.db.SCHEMA}."User"(id) NOT NULL
   )
 `
+export const fetchUniqueItems = (userId: number) => `
+  SELECT
+    item,
+    COUNT(item) AS freq
+  FROM
+    tracker. "Entry"
+  WHERE
+    user_id = ${userId}
+  GROUP BY
+    item
+  ORDER BY
+    freq DESC,
+    item
+`
