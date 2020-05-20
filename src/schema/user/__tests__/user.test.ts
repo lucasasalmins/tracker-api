@@ -117,16 +117,6 @@ describe('userCreateResolver', () => {
     user: { email: newAuthorisedEmail, password: newPassword },
   }
 
-  it('only allows approved users to sign up', async () => {
-    const actual = await UserEps.userCreateResolver(
-      {},
-      newUnauthorisedUser,
-      mockContext,
-    )
-    expect(findOneMock).toHaveBeenCalledTimes(0)
-    expect(actual).toBeInstanceOf(Error)
-    expect(actual.message).toEqual('ERROR: You are not authorised.')
-  })
 
   it('throws if user exists', async () => {
     const actual = await UserEps.userCreateResolver(

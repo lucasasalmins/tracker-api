@@ -1,4 +1,5 @@
 import { arg, extendType, mutationField } from '@nexus/schema'
+import { fetchUniqueItems } from '../../db/sql'
 import { logger } from '../../utils/logger'
 import { Entry, EntryInput } from './types'
 
@@ -13,7 +14,7 @@ export const entryResolver = async (_, args, ctx) => {
   }
 }
 
-export const users = extendType({
+export const entries = extendType({
   type: 'Query',
   definition(t) {
     t.list.field('entries', {
@@ -23,8 +24,36 @@ export const users = extendType({
   },
 })
 
+type EntryItem = string
+type EntryItemCount = number
+
+type ItemResult = {
+  item: EntryItem
+  freq: EntryItemCount
+}
+
+export const entryItemResolver = async (_, args, ctx): Promise<EntryItem[]> => {
+  try {
+    const rawItems = await ctx.prisma.raw(fetchUniqueItems(ctx.user.id))
+    return rawItems.map((itemResult: ItemResult) => itemResult.item)
+  } catch (error) {
+    logger.error(error)
+    return error
+  }
+}
+
+export const entryItems = extendType({
+  type: 'Query',
+  definition(t) {
+    t.list.field('items', {
+      type: 'String',
+      resolve: entryItemResolver,
+    })
+  },
+})
+
 export const createEntryResolver = async (_, args, ctx) => {
-  
+
   try {
     const timestamp = Date.now()
     const data = {

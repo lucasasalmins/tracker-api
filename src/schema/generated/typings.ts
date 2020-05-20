@@ -113,6 +113,7 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     entries: NexusGenRootTypes['Entry'][]; // [Entry!]!
+    items: string[]; // [String!]!
     users: NexusGenRootTypes['User'][]; // [User!]!
   }
   User: { // field return type
