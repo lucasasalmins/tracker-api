@@ -6,7 +6,10 @@ import { Entry, EntryInput } from './types'
 
 export const entryResolver = async (_, args, ctx) => {
   try {
-    const entries = await ctx.prisma.entry.findMany({ where: { userId: ctx.user.id } })
+    const entries = await ctx.prisma.entry.findMany({
+      where: { userId: ctx.user.id },
+      orderBy: { occurred: 'desc' }
+    })
     return entries
   } catch (error) {
     logger.error(error)
