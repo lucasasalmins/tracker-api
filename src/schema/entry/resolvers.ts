@@ -35,10 +35,18 @@ type ItemResult = {
   freq: EntryItemCount
 }
 
+const parseItem = (item: EntryItem): EntryItem => {
+  return item
+    .trim()
+    .toLowerCase()
+}
+
 export const entryItemResolver = async (_, args, ctx): Promise<EntryItem[]> => {
   try {
     const rawItems = await ctx.prisma.raw(fetchUniqueItems(ctx.user.id))
-    return rawItems.map((itemResult: ItemResult) => itemResult.item)
+    const parsedItems = rawItems.map((itemResult: ItemResult) => parseItem(itemResult.item))
+    const uniqueparsedItems: Set<string> = new Set(parsedItems)
+    return [...uniqueparsedItems]
   } catch (error) {
     logger.error(error)
     return error
