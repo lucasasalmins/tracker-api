@@ -9,14 +9,28 @@ export const Filter = inputObjectType({
   },
 })
 
-export const DateScalar = scalarType({
+export const DateTimeScalar = scalarType({
   name: 'DateTime',
   asNexusMethod: 'dateTime',
-  description: 'Date custom scalar type',
+  description: 'DateTime custom scalar type',
   parseValue(value) {
     return new Date(value)
   },
   serialize(value) {
+    return new Date(value)
+  },
+})
+
+export const DateScalar = scalarType({
+  name: 'Date',
+  asNexusMethod: 'date',
+  description: 'Date custom scalar type',
+  parseValue(value) {
+    // TODO: return just the date, NO TIME
+    return new Date(value)
+  },
+  serialize(value) {
+    // TODO: return just the date, NO TIME
     return new Date(value)
   },
 })

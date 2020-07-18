@@ -8,6 +8,11 @@ const bcrypt = require('bcryptjs')
 
 const { GOOGLE_CLIENT_ID } = config
 
+
+
+/////////////////////////////////////////////////
+// Users
+/////////////////////////////////////////////////
 export const userResolver = async (_, args, ctx) => {
   try {
     const users = await ctx.prisma.user.findMany()
@@ -29,6 +34,11 @@ export const users = extendType({
   },
 })
 
+
+
+/////////////////////////////////////////////////
+// Google Login
+/////////////////////////////////////////////////
 export const googleLoginResolver = async (_, { token: googleToken }, ctx) => {
   console.log(googleToken)
   try {
@@ -61,6 +71,10 @@ export const googleLogin = mutationField('googleLogin', {
   resolve: googleLoginResolver,
 })
 
+
+/////////////////////////////////////////////////
+// Email Create
+/////////////////////////////////////////////////
 export const userCreateResolver = async (_, args, ctx) => {
   const { email, password } = args.user
   try {
@@ -84,6 +98,11 @@ export const userCreate = mutationField('userCreate', {
   resolve: userCreateResolver,
 })
 
+
+
+/////////////////////////////////////////////////
+// Email Login
+/////////////////////////////////////////////////
 export const userLoginResolver = async (_, args, ctx) => {
   const { email, password } = args.user
   try {
@@ -109,6 +128,11 @@ export const userLogin = mutationField('userLogin', {
   resolve: userLoginResolver,
 })
 
+
+
+/////////////////////////////////////////////////
+// Refresh Tokens
+/////////////////////////////////////////////////
 export const refreshTokensResolver = async (_, args, ctx) => {
   const { token, refreshToken } = args
   try {

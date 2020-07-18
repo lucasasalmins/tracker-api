@@ -296,7 +296,7 @@ export declare type OrderByArg = (typeof OrderByArg)[keyof typeof OrderByArg]
  */
 
 export type User = {
-  createdAt: number
+  createdAt: Date
   email: string
   firstName: string | null
   googleId: string | null
@@ -305,7 +305,7 @@ export type User = {
   lastName: string | null
   password: string
   role: string
-  updatedAt: number
+  updatedAt: Date
 }
 
 export type UserSelect = {
@@ -722,11 +722,11 @@ export type UserArgs = {
  */
 
 export type Entry = {
-  createdAt: number
+  createdAt: Date
   id: number
   item: string
-  occurred: number
-  updatedAt: number
+  occurred: Date
+  updatedAt: Date
   userId: number
   value: string
 }
@@ -1143,11 +1143,11 @@ export type EntryArgs = {
 
 
 export type EntryWhereInput = {
-  createdAt?: number | IntFilter | null
+  createdAt?: Date | string | DateTimeFilter | null
   id?: number | IntFilter | null
   item?: string | StringFilter | null
-  occurred?: number | IntFilter | null
-  updatedAt?: number | IntFilter | null
+  occurred?: Date | string | DateTimeFilter | null
+  updatedAt?: Date | string | DateTimeFilter | null
   userId?: number | IntFilter | null
   value?: string | StringFilter | null
   AND?: Enumerable<EntryWhereInput> | null
@@ -1157,7 +1157,7 @@ export type EntryWhereInput = {
 }
 
 export type UserWhereInput = {
-  createdAt?: number | IntFilter | null
+  createdAt?: Date | string | DateTimeFilter | null
   email?: string | StringFilter | null
   firstName?: string | NullableStringFilter | null
   googleId?: string | NullableStringFilter | null
@@ -1166,7 +1166,7 @@ export type UserWhereInput = {
   lastName?: string | NullableStringFilter | null
   password?: string | StringFilter | null
   role?: string | StringFilter | null
-  updatedAt?: number | IntFilter | null
+  updatedAt?: Date | string | DateTimeFilter | null
   Entry?: EntryFilter | null
   AND?: Enumerable<UserWhereInput> | null
   OR?: Enumerable<UserWhereInput> | null
@@ -1183,10 +1183,10 @@ export type EntryWhereUniqueInput = {
 }
 
 export type EntryCreateWithoutUserInput = {
-  createdAt: number
+  createdAt: Date | string
   item: string
-  occurred: number
-  updatedAt: number
+  occurred: Date | string
+  updatedAt: Date | string
   value: string
 }
 
@@ -1196,7 +1196,7 @@ export type EntryCreateManyWithoutUserInput = {
 }
 
 export type UserCreateInput = {
-  createdAt: number
+  createdAt: Date | string
   email: string
   firstName?: string | null
   googleId?: string | null
@@ -1204,16 +1204,16 @@ export type UserCreateInput = {
   lastName?: string | null
   password: string
   role: string
-  updatedAt: number
+  updatedAt: Date | string
   Entry?: EntryCreateManyWithoutUserInput | null
 }
 
 export type EntryUpdateWithoutUserDataInput = {
-  createdAt?: number | null
+  createdAt?: Date | string | null
   id?: number | null
   item?: string | null
-  occurred?: number | null
-  updatedAt?: number | null
+  occurred?: Date | string | null
+  updatedAt?: Date | string | null
   value?: string | null
 }
 
@@ -1223,11 +1223,11 @@ export type EntryUpdateWithWhereUniqueWithoutUserInput = {
 }
 
 export type EntryScalarWhereInput = {
-  createdAt?: number | IntFilter | null
+  createdAt?: Date | string | DateTimeFilter | null
   id?: number | IntFilter | null
   item?: string | StringFilter | null
-  occurred?: number | IntFilter | null
-  updatedAt?: number | IntFilter | null
+  occurred?: Date | string | DateTimeFilter | null
+  updatedAt?: Date | string | DateTimeFilter | null
   userId?: number | IntFilter | null
   value?: string | StringFilter | null
   AND?: Enumerable<EntryScalarWhereInput> | null
@@ -1236,11 +1236,11 @@ export type EntryScalarWhereInput = {
 }
 
 export type EntryUpdateManyDataInput = {
-  createdAt?: number | null
+  createdAt?: Date | string | null
   id?: number | null
   item?: string | null
-  occurred?: number | null
-  updatedAt?: number | null
+  occurred?: Date | string | null
+  updatedAt?: Date | string | null
   value?: string | null
 }
 
@@ -1268,7 +1268,7 @@ export type EntryUpdateManyWithoutUserInput = {
 }
 
 export type UserUpdateInput = {
-  createdAt?: number | null
+  createdAt?: Date | string | null
   email?: string | null
   firstName?: string | null
   googleId?: string | null
@@ -1277,12 +1277,12 @@ export type UserUpdateInput = {
   lastName?: string | null
   password?: string | null
   role?: string | null
-  updatedAt?: number | null
+  updatedAt?: Date | string | null
   Entry?: EntryUpdateManyWithoutUserInput | null
 }
 
 export type UserUpdateManyMutationInput = {
-  createdAt?: number | null
+  createdAt?: Date | string | null
   email?: string | null
   firstName?: string | null
   googleId?: string | null
@@ -1291,11 +1291,11 @@ export type UserUpdateManyMutationInput = {
   lastName?: string | null
   password?: string | null
   role?: string | null
-  updatedAt?: number | null
+  updatedAt?: Date | string | null
 }
 
 export type UserCreateWithoutEntryInput = {
-  createdAt: number
+  createdAt: Date | string
   email: string
   firstName?: string | null
   googleId?: string | null
@@ -1303,7 +1303,7 @@ export type UserCreateWithoutEntryInput = {
   lastName?: string | null
   password: string
   role: string
-  updatedAt: number
+  updatedAt: Date | string
 }
 
 export type UserCreateOneWithoutEntryInput = {
@@ -1312,16 +1312,16 @@ export type UserCreateOneWithoutEntryInput = {
 }
 
 export type EntryCreateInput = {
-  createdAt: number
+  createdAt: Date | string
   item: string
-  occurred: number
-  updatedAt: number
+  occurred: Date | string
+  updatedAt: Date | string
   value: string
   User: UserCreateOneWithoutEntryInput
 }
 
 export type UserUpdateWithoutEntryDataInput = {
-  createdAt?: number | null
+  createdAt?: Date | string | null
   email?: string | null
   firstName?: string | null
   googleId?: string | null
@@ -1330,7 +1330,7 @@ export type UserUpdateWithoutEntryDataInput = {
   lastName?: string | null
   password?: string | null
   role?: string | null
-  updatedAt?: number | null
+  updatedAt?: Date | string | null
 }
 
 export type UserUpsertWithoutEntryInput = {
@@ -1346,22 +1346,33 @@ export type UserUpdateOneRequiredWithoutEntryInput = {
 }
 
 export type EntryUpdateInput = {
-  createdAt?: number | null
+  createdAt?: Date | string | null
   id?: number | null
   item?: string | null
-  occurred?: number | null
-  updatedAt?: number | null
+  occurred?: Date | string | null
+  updatedAt?: Date | string | null
   value?: string | null
   User?: UserUpdateOneRequiredWithoutEntryInput | null
 }
 
 export type EntryUpdateManyMutationInput = {
-  createdAt?: number | null
+  createdAt?: Date | string | null
   id?: number | null
   item?: string | null
-  occurred?: number | null
-  updatedAt?: number | null
+  occurred?: Date | string | null
+  updatedAt?: Date | string | null
   value?: string | null
+}
+
+export type DateTimeFilter = {
+  equals?: Date | string | null
+  not?: Date | string | DateTimeFilter | null
+  in?: Enumerable<Date | string> | null
+  notIn?: Enumerable<Date | string> | null
+  lt?: Date | string | null
+  lte?: Date | string | null
+  gt?: Date | string | null
+  gte?: Date | string | null
 }
 
 export type IntFilter = {

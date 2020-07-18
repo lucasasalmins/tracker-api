@@ -3,6 +3,9 @@
 
 
 """Date custom scalar type"""
+scalar Date
+
+"""DateTime custom scalar type"""
 scalar DateTime
 
 type Entry {
@@ -43,7 +46,8 @@ type Mutation {
 }
 
 type Query {
-  entries: [Entry!]!
+  days: [Date!]!
+  entries(day: String): [Entry!]!
   items: [String!]!
   users: [User!]!
 }

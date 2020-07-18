@@ -7,7 +7,7 @@
  * @param password
  */
 export const constructUser = async (user: any, password: string) => {
-  const timestamp = Date.now()
+  const timestamp = new Date()
   // console.log('timestamp', timestamp)
 
   return {

@@ -8,11 +8,13 @@ import { core } from "@nexus/schema"
 declare global {
   interface NexusGenCustomInputMethods<TypeName extends string> {
     dateTime<FieldName extends string>(fieldName: FieldName, opts?: core.ScalarInputFieldConfig<core.GetGen3<"inputTypes", TypeName, FieldName>>): void // "DateTime";
+    date<FieldName extends string>(fieldName: FieldName, opts?: core.ScalarInputFieldConfig<core.GetGen3<"inputTypes", TypeName, FieldName>>): void // "Date";
   }
 }
 declare global {
   interface NexusGenCustomOutputMethods<TypeName extends string> {
     dateTime<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "DateTime";
+    date<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "Date";
   }
 }
 
@@ -82,6 +84,7 @@ export interface NexusGenRootTypes {
   Float: number;
   Boolean: boolean;
   ID: string;
+  Date: any;
   DateTime: any;
 }
 
@@ -112,6 +115,7 @@ export interface NexusGenFieldTypes {
     userLogin: NexusGenRootTypes['UserLoginResponse']; // UserLoginResponse!
   }
   Query: { // field return type
+    days: any[]; // [Date!]!
     entries: NexusGenRootTypes['Entry'][]; // [Entry!]!
     items: string[]; // [String!]!
     users: NexusGenRootTypes['User'][]; // [User!]!
@@ -150,6 +154,11 @@ export interface NexusGenArgTypes {
       user: NexusGenInputs['UserLogin']; // UserLogin!
     }
   }
+  Query: {
+    entries: { // args
+      day?: string | null; // String
+    }
+  }
 }
 
 export interface NexusGenAbstractResolveReturnTypes {
@@ -165,7 +174,7 @@ export type NexusGenEnumNames = "Role";
 
 export type NexusGenInterfaceNames = never;
 
-export type NexusGenScalarNames = "Boolean" | "DateTime" | "Float" | "ID" | "Int" | "String";
+export type NexusGenScalarNames = "Boolean" | "Date" | "DateTime" | "Float" | "ID" | "Int" | "String";
 
 export type NexusGenUnionNames = never;
 

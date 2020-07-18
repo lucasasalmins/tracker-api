@@ -16,26 +16,26 @@ datasource db {
 // timestamps (createdAt, updatedAt) are stored as unix timestamps
 // created using Date.now() (easier to test and considers timezone)
 model User {
-  createdAt      Int     @map("created_at")
-  email          String  @unique
-  firstName      String? @map("first_name")
-  googleId       String? @map("google_id")
-  googleImageUrl String? @map("google_image_url")
-  id             Int     @default(autoincrement()) @id
-  lastName       String? @map("last_name")
+  createdAt      DateTime     @map("created_at")
+  email          String       @unique
+  firstName      String?      @map("first_name")
+  googleId       String?      @map("google_id")
+  googleImageUrl String?      @map("google_image_url")
+  id             Int          @default(autoincrement()) @id
+  lastName       String?      @map("last_name")
   password       String
   role           String
-  updatedAt      Int     @map("updated_at")
+  updatedAt      DateTime     @map("updated_at")
   Entry          Entry[]
 }
 
 model Entry {
-  createdAt  Int    @map("created_at")
-  id         Int    @default(autoincrement()) @id
+  createdAt  DateTime     @map("created_at")
+  id         Int          @default(autoincrement()) @id
   item       String
-  occurred   Int
-  updatedAt  Int    @map("updated_at")
-  userId     Int    @map("user_id")
+  occurred   DateTime
+  updatedAt  DateTime     @map("updated_at")
+  userId     Int          @map("user_id")
   value      String
-  User       User   @relation(fields: [userId], references: [id])
+  User       User         @relation(fields: [userId], references: [id])
 }

@@ -20,8 +20,8 @@ export const CREATE_USER = `
     
     google_image_url    character varying(255),
 
-    created_at          bigint NOT NULL,
-    updated_at          bigint NOT NULL
+    created_at          timestamp with time zone NOT NULL,
+    updated_at          timestamp with time zone NOT NULL
   )
 `
 
@@ -30,9 +30,9 @@ export const CREATE_ENTRY = `
     id                  SERIAL PRIMARY KEY,
     item                character varying(255) NOT NULL,
     value               character varying(255) NOT NULL,
-    occurred            bigint NOT NULL,
-    created_at          bigint NOT NULL,
-    updated_at          bigint NOT NULL,
+    occurred            timestamp with time zone NOT NULL,
+    created_at          timestamp with time zone NOT NULL,
+    updated_at          timestamp with time zone NOT NULL,
     user_id             integer REFERENCES ${config.db.SCHEMA}."User"(id) NOT NULL
   )
 `
@@ -41,7 +41,7 @@ export const fetchUniqueItems = (userId: number) => `
     item,
     COUNT(item) AS freq
   FROM
-    tracker. "Entry"
+    tracker."Entry"
   WHERE
     user_id = ${userId}
   GROUP BY
@@ -49,4 +49,15 @@ export const fetchUniqueItems = (userId: number) => `
   ORDER BY
     freq DESC,
     item
+`
+
+export const fetchUniqueDays = (userId: number) => `
+    SELECT
+      occurred
+    FROM
+      tracker."Entry"
+    WHERE
+      user_id = ${userId}
+    ORDER BY
+      occurred
 `

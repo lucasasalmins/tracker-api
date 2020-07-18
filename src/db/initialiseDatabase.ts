@@ -7,7 +7,8 @@ export const initDb = async () => {
   try {
     // TODO: create proper database migration steps
     // TODO: create DB IF NOT EXISTS https://stackoverflow.com/questions/18389124/simulate-create-database-if-not-exists-for-postgresql
-    // await db.query(`DROP TABLE IF EXISTS "User" CASCADE`)
+    // await db.query(`DROP TABLE IF EXISTS "tracker"."User" CASCADE`)
+    // await db.query(`DROP TABLE IF EXISTS "tracker"."Entry" CASCADE`)
 
     // create tables
     await db.query(Queries.CREATE_SCHEMA)
